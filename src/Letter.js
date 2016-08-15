@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Letter.css'
 
-class Letters extends Component {
+class Letter extends Component {
   // There's actually a cleaner way to work with class names like this
   // that we will cover later...
   render() {
@@ -16,4 +16,4 @@ class Letters extends Component {
   }
 }
 
-export default Letters
+export default Letter

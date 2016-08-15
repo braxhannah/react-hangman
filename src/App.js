@@ -1,21 +1,56 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { Component } from 'react'
+import Word from './Word.js'
+import './App.css'
+import Keyboard from './Keyboard.js'
 class App extends Component {
+
+  constructor () {
+    super()
+    this.state = {
+      solution: 'BALLIN',
+      used: [],
+      matched: []
+    }
+  }
+
+  onPlay=(character) => {
+    for (let i = 0; i < this.state.solution.length; i++) {
+      if( character === this.state.solution[i]) {
+        this.state.matched.push(character)
+        }
+          if (this.state.matched.length===this.state.solution.length){
+            alert('You Win')
+            this.setState({
+              used:[],
+              matched: []
+          })
+        }
+
+      }
+      console.log(this.state.used.length)
+    if (this.state.used.length >= 6){
+      alert('You Lose')
+      this.setState({
+        used:[],
+        matched: []
+      })
+    }
+
+
+    this.state.used.push(character)
+    this.setState({
+      used: this.state.used
+    })
+    console.log(this.state.used)
+  }
+
   render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    return <div className='App'>
+      <h1>Hangman!</h1>
+      <Word solution={this.state.solution} used={this.state.used} />
+      <Keyboard onPlay={this.onPlay}/>
+    </div>
   }
 }
 
-export default App;
+export default App
