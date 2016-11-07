@@ -7,9 +7,11 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      solution: 'BALLIN',
+      solution: 'GITHUB',
       used: [],
-      matched: []
+      matched: [],
+      count: 0,
+      hangmanImage: ['../images/hangmanBase.gif','../images/hangmanHead.gif','../images/hangmanBody.gif','../images/hangmanLeftArm.gif','../images/hangmanRightArm.gif','../images/hangmanLeftLeg.gif','../images/hangmanRightLeg.gif']
     }
   }
 
@@ -24,8 +26,9 @@ class App extends Component {
               used:[],
               matched: []
           })
+          this.refresh()
         }
-
+        this.setState({count: this.state.count + 1})
       }
       console.log(this.state.used.length)
     if (this.state.used.length >= 6){
@@ -34,6 +37,7 @@ class App extends Component {
         used:[],
         matched: []
       })
+      this.refresh()
     }
 
 
@@ -43,12 +47,18 @@ class App extends Component {
     })
     console.log(this.state.used)
   }
+refresh= () => {
+  window.location.reload()
+}
 
   render() {
+    // let foo = this.state.used.length ? this.state.used.length - this.state.matched.length : 0
     return <div className='App'>
       <h1>Hangman!</h1>
-      <Word solution={this.state.solution} used={this.state.used} />
-      <Keyboard onPlay={this.onPlay}/>
+      <img src= {this.state.hangmanImage[this.state.count]} alt='hangman' />
+      <Word solution= {this.state.solution} used={this.state.used} />
+      <Keyboard onPlay= {this.onPlay}/>
+      <button onClick={this.refresh} > ResetGame </button>
     </div>
   }
 }
